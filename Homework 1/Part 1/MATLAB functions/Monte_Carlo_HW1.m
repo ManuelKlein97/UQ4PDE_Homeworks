@@ -1,4 +1,4 @@
-function [MC_estimate] = Monte_Carlo_HW1(f, N, M);
+function [MC_estimate, MC_var] = Monte_Carlo_HW1(f, N, M);
 %{
 ---------------------------------------------------------------------------
 Description:
@@ -16,5 +16,7 @@ Parameters:
 samples = rand(N, M);
 y_values = f(samples);
 MC_estimate = 1/M*sum(y_values);
+
+MC_var = (1/(M-1))*sum((y_values - MC_estimate).^2);
 
 end
