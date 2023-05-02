@@ -14,7 +14,7 @@ Parameters:
 %}
 
 samples = normrnd(0, 1, [2, M]);
-y_values = f(samples)
+y_values = f(samples);
 MC_est = 1/M*sum(y_values);
 
 MC_var = (1/(M-1))*sum((y_values - MC_est).^2);

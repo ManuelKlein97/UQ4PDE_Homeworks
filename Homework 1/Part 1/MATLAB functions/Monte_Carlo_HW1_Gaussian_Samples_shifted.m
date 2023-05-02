@@ -10,13 +10,15 @@ x=(x_1,x_2).
 Parameters:
     f: function handle
     M: number of samples used in MC estimate
+    mu1: Shift coming from the shift dilation technique in IS
+    mu2: Shift coming from the shift dilation technique in IS
 ---------------------------------------------------------------------------
 %}
 sample1 = normrnd(mu1, 1, [1, M]);
 sample2 = normrnd(mu2, 1, [1, M]);
 samples = [sample1; sample2];
 y_values = f(samples);
-MC_est = 1/M*sum(y_values);
+MC_est = (1/M)*sum(y_values);
 
 MC_var = (1/(M-1))*sum((y_values - MC_est).^2);
 
