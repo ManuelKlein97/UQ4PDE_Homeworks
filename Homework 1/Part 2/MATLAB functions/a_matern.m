@@ -1,4 +1,4 @@
-function [solution] = a_matern_Chol(x, nu)
+function [solution] = a_matern(x, nu)
 %{
 ---------------------------------------------------------------------------
 Description:
@@ -28,6 +28,6 @@ end
 Z = normrnd(0, 1, [length(x) 1]);
 
 % Get final sample by transformation (since mean zero)
-solution = mtimes(A, Z);
+solution = exp(mtimes(A, Z));
 
 end
