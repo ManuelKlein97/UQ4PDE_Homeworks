@@ -46,6 +46,9 @@ if (randomfield == 1)
 end
 if (randomfield == 2)
     nu = 0.5; % Set nu=0.5 for now
+    %l = 3;
+    %N = I*2^(-l);
+    %a = a_KL_expansion(x, nu, N);
     a = a_matern(x_half, nu);
 end
 

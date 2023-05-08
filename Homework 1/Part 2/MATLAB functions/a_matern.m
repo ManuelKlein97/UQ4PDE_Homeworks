@@ -2,7 +2,8 @@ function [solution] = a_matern(x, nu)
 %{
 ---------------------------------------------------------------------------
 Description:
-function handle for the Oscillator function f given in Homework 1.
+function to generate a sample of the matern covariance function given a
+parameter nu using Cholesky/Singular value decomposition
 ---------------------------------------------------------------------------
 Parameters:
          x: Discretization scheme of the interval [0,1]
@@ -28,6 +29,6 @@ end
 Z = normrnd(0, 1, [length(x) 1]);
 
 % Get final sample by transformation (since mean zero)
-solution = exp(mtimes(A, Z));
+solution = exp(A*Z);
 
 end

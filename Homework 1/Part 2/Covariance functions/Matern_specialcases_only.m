@@ -39,7 +39,7 @@ end
 if nu == 2.5
     for l=1:length(x)
         for k=1:length(x)
-            solution(l, k) = sigma^2*(1 + sqrt(5)*abs(x(l) - x(k))/(rho))*(1 + sqrt(3)*abs(x(l) - x(k))/(rho^2))*exp(-sqrt(3)*abs(x(l) - x(k))/rho);
+            solution(l, k) = sigma^2*(1 + sqrt(5)*abs(x(l) - x(k))/(rho) + sqrt(3)*abs(x(l) - x(k))^2/(rho^2))*exp(-sqrt(5)*abs(x(l) - x(k))/rho);
         end
     end
 end
