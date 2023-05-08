@@ -6,7 +6,7 @@ Function to return the approximate solution u_h of the given PDE
 ---------------------------------------------------------------------------
 Parameters:
              I: Grid size for the uniform mesh to discret. problem
-   randomfield: 1 == Piecewise constant coeff, 2 == Log-Normal
+   randomfield: 1 == Piecewise constant coeff, 2 == Log-Normal (Decomp.)
 ---------------------------------------------------------------------------
 %}
 
