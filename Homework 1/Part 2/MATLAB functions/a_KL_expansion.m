@@ -27,13 +27,13 @@ C = Matern_specialcases_only(x_half, nu);
 [EVec, EVal] = eig(C);
 
 SV = zeros([I 1]); % Singular values array
-LinfNorm_EVec = zeros([I 1]); % Inf-Norm array of EVec's
+%LinfNorm_EVec = zeros([I 1]); % Inf-Norm array of EVec's
 
 % Calculation of singular values & rearangement of order
 EVec = flip(EVec, 2);
 for k=1:I
     SV(k) = sqrt(EVal(I+1-k, I+1-k));
-    LinfNorm_EVec(k) = norm(EVec(:, k), "inf");
+    %LinfNorm_EVec(k) = norm(EVec(:, k), "inf");
 end
 
 % Generate random samples from std Gaussian
