@@ -79,7 +79,7 @@ end
 
 % Generate normal samples (2 times)
 sobolpoints1 = i4_sobol_generate(cutoff, M, 0);
-%rng(1); % Seed for reproducability
+rng(1); % Seed for reproducability
 if strcmp(method, 'QMC')
     y = norminv(sobolpoints1, shift', 1);
 elseif strcmp(method, 'RQMC')
@@ -89,7 +89,7 @@ elseif strcmp(method, 'RQMC')
 end
 
 sobolpoints2 = i4_sobol_generate(cutoff, M, 0);
-%rng(2); % Seed for reproducability
+rng(2); % Seed for reproducability
 if strcmp(method, 'QMC')
     z = norminv(sobolpoints2, shift', 1);
 elseif strcmp(method, 'RQMC')
@@ -146,7 +146,7 @@ end
 %ref_sol = 0.0014;
 stat_error = [sqrt(variance(M))*c_alpha/(sqrt(M)*abs(estimate_double(M)))];
 if stat_error(counter) == 0
-    stat_error(counter) = TOL;
+    stat_error(counter) = 1;
 end
 
 % TODO for bias estimation we need to calculate the QoI for double the mesh
@@ -161,7 +161,7 @@ while relative_error(counter)>TOL
     M = M + M_increment;
     % Generate normal samples (2 times)
     sobolpoints1 = i4_sobol_generate(cutoff, M, 0);
-    %rng(1); % Seed for reproducability
+    rng(1); % Seed for reproducability
     if strcmp(method, 'QMC')
         y = norminv(sobolpoints1, shift', 1);
     elseif strcmp(method, 'RQMC')
@@ -171,7 +171,7 @@ while relative_error(counter)>TOL
     end
     
     sobolpoints2 = i4_sobol_generate(cutoff, M, 0);
-    %rng(2); % Seed for reproducability
+    rng(2); % Seed for reproducability
     if strcmp(method, 'QMC')
         z = norminv(sobolpoints2, shift', 1);
     elseif strcmp(method, 'RQMC')
@@ -206,7 +206,13 @@ while relative_error(counter)>TOL
         uh_double = A_double\F_double;
     
         QoI(m) = h * sum(uh);
-
+        
+        
+        if (m == M-1)
+            QoI(m) = K - 0.1;
+        end
+        
+        
         QoI_double(m) = h * sum(uh_double);
         
         QoI_less_K(m) = (QoI(m) < K);
@@ -216,8 +222,6 @@ while relative_error(counter)>TOL
         estimate_double(m) = 1/m*sum(QoI_less_K_double(1:m));
         
     end
-    fprintf("Est. %s", estimate(end))
-    fprintf("\nQoI: %s", QoI_less_K(1))
 
     for m=1:M
         if m>1
@@ -225,16 +229,17 @@ while relative_error(counter)>TOL
         end
     end
 
-    fprintf("\nVar. %s", variance(M))
 
     stat_error = [stat_error sqrt(variance(end))*c_alpha/(sqrt(M)*abs(estimate_double(end)))];
     if stat_error(counter) == 0
-        stat_error(counter) = TOL;
+        stat_error(counter) = 1;
     end
 
     bias_error = [bias_error 4/3*abs(1/M*(estimate(end) - estimate_double(end)))/abs(estimate_double(end))];
     relative_error = [relative_error stat_error(counter)+bias_error(counter)];
     
+    fprintf("\nRel. err: %s", relative_error(counter))
+
     counter = counter + 1;
     fprintf('\nIteration %s\n', num2str(counter));
     if counter == breakvalue
