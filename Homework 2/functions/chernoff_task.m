@@ -1,4 +1,4 @@
-function [I_est_sup] = chernoff_task(nu, M, theta, I, X)
+function [P_bound, max_theta] = chernoff_task(nu, M, theta, I, X)
 
 h = 1./I;
 
@@ -30,6 +30,9 @@ uniformed_rand_sp2 = mod(randomized_sobolpoints2, 1);
 z = norminv(uniformed_rand_sp2);
 
 % Now we can represent the random field a using the Fourier series
+if strcmp(nu, 'infinity')
+    nu = 0;
+end
 fourier = fourierkoeff(nu, cutoff);
 
 % Construction of F for normal mesh size
@@ -57,9 +60,13 @@ for n=1:Ntheta
 end
 
 I_est_sup = zeros(NX, 1);
+max_theta = zeros(NX, 1);
 % Now optimizing for the supremum
 for i=1:NX
-    I_est_sup(i) = max(I_est(i, :));
+    [I_est_sup(i), max_theta(i)] = max(I_est(i, :));
 end
+max_theta = theta(max_theta);
+
+P_bound = exp(-I_est_sup);
 
 end
