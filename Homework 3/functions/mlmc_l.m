@@ -12,5 +12,17 @@ function [sums, costs] = mlmc_l(l, N0, varargin)
 %         cost = cost of N samples
 
 % Noah: CalculateQoI(x,2I,1/(2I),nu) - CalculateQoI(x,I,1/I,nu)
+%{
+Goal: Compute the level l MC estimate for our specific problem (rPDE)
+For that we need:
+    1) A fixed Stepsize for level l=0,...,Lmin,...,Lmax (Discretization
+    parameter hl=h0*2^(-l)
+    2) 
+    3)
+%}
+
+
+sums = [1 0.01];
+costs = 0.001;
 
 end
