@@ -21,5 +21,3 @@ function [c, v] = GetConstants(f,d,M0)
     end
     v=v/(M0-1);
 end
-
-
