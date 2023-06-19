@@ -107,14 +107,15 @@ end
 
 % Check method
 if strcmp(method, 'MC')
-    Y = normrnd(0, 1, [cutoff M0]) + shift';
+    % TODO Maybe add a shift, s.t. we can use Importance sampling
+    Y = normrnd(0, 1, [cutoff M0]);
 elseif strcmp(method, 'QMC')
-    % Sobolpoint 0 is problematic because norminv(0)=-inf (?)
-    sobolpoints = i4_sobol_generate(cutoff, M0+1, 0);
-    Y = norminv(sobolpoints(:, 2:M0+1), shift', 1);
+    % Sobolpoint 0 is problematic bec
+    sobolpoints = i4_sobol_generate(cutoff, M0+1, 0)
+    Y = norminv(sobolpoints(:, 2:M0+1), shift', 1)
 elseif strcmp(method, 'RQMC')
     sobolpoints = i4_sobol_generate(cutoff, M0, 0);
-    randomized_sobolpoints = sobolpoints + randn(cutoff, M0) + shift';
+    randomized_sobolpoints = sobolpoints + randn(cutoff, M) + shift';
     uniformed_rand_sp = mod(randomized_sobolpoints, 1);
     Y = norminv(uniformed_rand_sp);
 end
@@ -206,6 +207,7 @@ for l=1:Lmax
         error("Optimal sample size for each level is not decreasing.")
     end
 end
+M_l
 
 % ------------------------------------------------------------------------
 % Now we will calculate a MLMC estimate using the optimal number of samples
@@ -220,13 +222,13 @@ for l=1:Lmax+1
     % Check method
     if strcmp(method, 'MC')
         % TODO Maybe add a shift, s.t. we can use Importance sampling
-        Y = normrnd(0, 1, [cutoff M_l(l)]) + shift';
+        Y = normrnd(0, 1, [cutoff M0]);
     elseif strcmp(method, 'QMC')
-        sobolpoints = i4_sobol_generate(cutoff, M_l(l)+1, 0);
-        Y = norminv(sobolpoints(:, 2:M_l(l)+1), shift', 1);
+        sobolpoints = i4_sobol_generate(cutoff, M0, 0);
+        Y = norminv(sobolpoints, shift', 1);
     elseif strcmp(method, 'RQMC')
-        sobolpoints = i4_sobol_generate(cutoff, M_l(l), 0);
-        randomized_sobolpoints = sobolpoints + randn(cutoff, M_l(l)) + shift';
+        sobolpoints = i4_sobol_generate(cutoff, M0, 0);
+        randomized_sobolpoints = sobolpoints + randn(cutoff, M) + shift';
         uniformed_rand_sp = mod(randomized_sobolpoints, 1);
         Y = norminv(uniformed_rand_sp);
     end
@@ -281,6 +283,7 @@ for l=1:Lmax+1
 end
 
 % Finally we can write the MLMC estimator
+MC_estimate
 MLMC_estimate = sum(MC_estimate(1:Lmax));
 MLMC_variance = sum((1./M_l(1:Lmax)).*variance(1:Lmax));
 
