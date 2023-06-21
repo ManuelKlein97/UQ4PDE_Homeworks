@@ -340,7 +340,6 @@ for m=1:M_l(l)
     randomfield_a(:, m) = exp(kappa(:, m));
 end
 
-QoI_previous_level = zeros(M_l(l), 1);
 for l=1:Lmax+1
     tic
     indices = zeros(I(l), 1);
