@@ -1,4 +1,4 @@
-function [P_bound, max_theta] = chernoff(theta, K)
+function [P_bound, max_theta] = chernoff_sum(theta, K)
 %{
 ---------------------------------------------------------------------------
 Description:
@@ -189,7 +189,7 @@ end
 I_est = zeros(Ntheta, 1);
 for n=1:Ntheta   
     Lambda(n) = log(exp_est(n));
-    I_est(n) = theta(n)*(-K) - log(exp_est(n));
+    I_est(n) = theta(n)*(-K) - Lambda(n);
 end
 
 [I_est_sup, max_theta] = max(I_est);
