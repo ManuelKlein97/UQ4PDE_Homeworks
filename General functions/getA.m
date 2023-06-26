@@ -10,14 +10,14 @@ Inputs:
 
 Outputs:
      A: realization of random tridiagonal matrix corresponding to our rPDE
-        (length(randomfield) x length(randomfield))
+        (length(randomfield)-1 x length(randomfield)-1)
 ---------------------------------------------------------------------------
 %}
 
 % Goal: we need to find our the size of A depending on the randomfields
 % size
 
-temp = length(randomfield);
+temp = length(randomfield) - 1;
 I = temp;
 h = 1/(temp); % ok
 

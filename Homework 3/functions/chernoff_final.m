@@ -112,16 +112,17 @@ for l=2:LMax
         A2 = getA(randomfield_a2(:, m));
         u_h1 = A1\F1;
         u_h2 = A2\F2;
-        QoI(m) = -h(l-1)*sum(u_h1) + h(l)*sum(u_h2);
+        QoI1(m) = h(l-1)*sum(u_h1);
+        QoI2(m) = h(l)*sum(u_h2);
     end
     % Calculate expected value of 
     for n=1:Ntheta
-        g(l, n) = 1/M_l(l) * sum(exp(-theta(n)*QoI));
+        g(l, n) = 1/M_l(l) * sum(exp(-theta(n)*QoI2)) - 1/M_l(l) * sum(exp(-theta(n)*QoI1));
     end
 end
 
 % Using product representation of E[exp(-theta*QoI)] we get
-Lambda = log(prod(g, 1));
+Lambda = log(sum(g, 1));
 I_sup = theta*(-K) - Lambda;
 [I_sup_optimaltheta, theta_index] = max(I_sup);
 opt_theta = theta(theta_index);

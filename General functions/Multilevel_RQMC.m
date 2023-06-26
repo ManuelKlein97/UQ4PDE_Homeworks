@@ -1,4 +1,4 @@
-function [MLMC_estimate, MLMC_variance, costs] = Multilevel_RQMC(h0, LMax, M_l, nu, s)
+unction [MLMC_estimate, MLMC_variance, costs] = Multilevel_RQMC(h0, LMax, M_l, nu, s)
 %{
 ---------------------------------------------------------------------------
 Description:
