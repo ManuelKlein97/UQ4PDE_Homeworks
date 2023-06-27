@@ -17,7 +17,7 @@ Outputs:
 % Goal: we need to find our the size of A depending on the randomfields
 % size
 
-temp = length(randomfield) - 1;
+temp = length(randomfield);
 I = temp;
 h = 1/(temp); % ok
 

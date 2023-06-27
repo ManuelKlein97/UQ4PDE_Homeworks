@@ -20,7 +20,7 @@ rho = 0.1;
 sigma = sqrt(2);
 h = 1./I;
 
-[temp, x_auxiliary] = grid_level(h);
+[x_auxiliary, temp] = grid_level(h);
 NoP = length(x_auxiliary);
 
 if cutoff > NoP
@@ -36,7 +36,7 @@ for i=1:NoP
             Cov_mat(i, j) = sigma^2 .* (1 + sqrt(3)*abs(x_auxiliary(i)-x_auxiliary(j))/rho) .* exp( - sqrt(3)*abs(x_auxiliary(i)-x_auxiliary(j))/rho );
         elseif nu == 2.5
             Cov_mat(i, j) = sigma^2 .* (1 + sqrt(5)*abs(x_auxiliary(i)-x_auxiliary(j))/rho + sqrt(3)*abs(x_auxiliary(i)-x_auxiliary(j)).^2/rho^2) .* exp( - sqrt(5)*abs(x_auxiliary(i)-x_auxiliary(j))/rho );
-        elseif strcmp(nu, 'infinity')
+        elseif nu == 0
             Cov_mat(i, j) = sigma^2 .* exp(-abs(x_auxiliary(i)-x_auxiliary(j)).^2/(2*rho^2));
         end
     end
