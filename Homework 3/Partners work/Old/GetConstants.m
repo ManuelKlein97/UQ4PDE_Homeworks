@@ -1,13 +1,13 @@
-function [c, v] = GetConstants(f, d, M0)
-    % Returns time c that it takes to generate a sample and evaluate the
-    % function f at the sample
-    % v is the variance
-    % we need both c and v for finding the optimal sample size in MLMC
-    
-    tic;
-    Y=randn(d,1);
-    f(Y);
-    c=toc;
+function [c, v] = GetConstants(f,d,M0)
+    N = 100;
+    c_vec = zeros(1,N);
+    for n = 1:N
+        tic;
+        Y=randn(d,1);
+        f(Y);
+        c_vec(n)=toc;
+    end
+    c = mean(c_vec);
 
     Y=randn(d,M0);
     temp=0;
