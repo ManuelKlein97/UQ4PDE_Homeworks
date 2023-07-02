@@ -1,5 +1,5 @@
-function [msol,Msol] = LagrangeMinimizer(V,delta,TOL)
-    fun = @(M) M(8)*(M(1)+2*M(2)+4*M(3)+8*M(4)+16*M(5)+32*M(6)+64*M(7));
+function [msol,Msol] = LagrangeMinimizer(V,delta,TOL,C)
+    fun = @(M) M(8)*(C(1)*M(1)+C(2)*M(2)+C(3)*M(3)+C(4)*M(4)+C(5)*M(5)+C(6)*M(6)+C(7)*M(7));
     
     nonlcon = @(M) con(M,delta,TOL,V);
     
