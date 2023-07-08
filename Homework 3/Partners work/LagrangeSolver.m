@@ -4,10 +4,10 @@ function [msol,Msol,lambdasol] = LagrangeSolver(V,delta,TOL)
 %delta: QMC constant
 %TOL: wanted Tolerance
 sol = sym('x', [9 1]);
-options=optimoptions(@fsolve,'MaxIterations',1000000,'MaxFunctionEvaluations',1000000);
+options=optimoptions(@fsolve,'MaxIterations',1000000,'MaxFunctionEvaluations',10000000);
 optfun=@(x)f(x,V,delta,TOL);
 assume(sol>=0)
-sol=fsolve(optfun,[1,50,100000,500,250,125,100,50,10],options);
+sol=fsolve(optfun,[1,3,50000,5000,2500,1250,1000,500,100],options);
 sol=real(sol);
 lambdasol=sol(1);
 msol=sol(2)^2;
