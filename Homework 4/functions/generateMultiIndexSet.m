@@ -1,0 +1,5 @@
+function [multiindexset] = generateMultiIndexSet()
+
+
+
+end
