@@ -1,4 +1,4 @@
-function [func_eval] = LegendreSeries(x, coeff)
+function [func_eval] = LegendreSeries1D(x, coeff)
 %{
 ---------------------------------------------------------------------------
 Description:

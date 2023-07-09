@@ -1,4 +1,4 @@
-function [coeff] = getLegendreCoefficients(f, w)
+function [coeff] = getLegendreCoefficients1D(f, w)
 %{
 ---------------------------------------------------------------------------
 Description:
