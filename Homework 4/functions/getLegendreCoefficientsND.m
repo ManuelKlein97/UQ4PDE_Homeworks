@@ -1,4 +1,4 @@
-function [coeff] = getLegendreCoefficientsND(f, w, N, type, M)
+function [coeff, indxset, Dprod] = getLegendreCoefficientsND(f, w, N, type, M)
 %{
 ---------------------------------------------------------------------------
 Description:
@@ -11,20 +11,34 @@ Parameters:
     N: inputdimension of function f
  type: Polynomial space type ('TP', 'HC', 'TD')
     M: Number of random samples used
+
+Output:
+    coeff: Legendre coefficients for multidimensional representation
+    indxset: corresponding multi-index set
+    Dprod: D^T.D to check stability and condition
 ---------------------------------------------------------------------------
 %}
 indxset = generateMultiIndexSet(N, w, type);
-y = rand([N M])
-scatter(y(1,:), y(2,:))
-y = sort(y)
-figure()
-scatter(y(1,:), y(2,:))
-phi = zeros([1 M]);
+[indxsize, ~] = size(indxset);
+rng(1)
+y = rand([N M]);
+phi = zeros([M 1]);
 for i=1:M
     phi(i) = f(y(:, i));
 end
-phi
 
-
-
+D = ones(M, indxsize);
+for p=1:indxsize
+    for i=1:M
+        for n=1:N
+            D(i, p) = D(i, p)*legendreP(indxset(p, n), 2*y(n, i)-1);
+        end
+    end
+end
+Dtrans = transpose(D);
+Dprod = mtimes(Dtrans, D);
+G = 1/M*Dprod;
+Dinv = inv(Dprod);
+Dfinal = mtimes(Dinv, Dtrans);
+coeff = mtimes(Dfinal, phi);
 end

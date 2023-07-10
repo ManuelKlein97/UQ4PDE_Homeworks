@@ -1,4 +1,4 @@
-function [indxset] = generateMultiIndexSet(N, w, type)
+xfunction [indxset] = generateMultiIndexSet(N, w, type)
 %{
 ---------------------------------------------------------------------------
 Description:
