@@ -37,7 +37,6 @@ for p=1:indxsize
 end
 Dtrans = transpose(D);
 Dprod = mtimes(Dtrans, D);
-G = 1/M*Dprod;
 Dinv = inv(Dprod);
 Dfinal = mtimes(Dinv, Dtrans);
 coeff = mtimes(Dfinal, phi);
