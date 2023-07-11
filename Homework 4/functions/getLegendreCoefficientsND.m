@@ -20,7 +20,7 @@ Output:
 %}
 indxset = generateMultiIndexSet(N, w, type);
 [indxsize, ~] = size(indxset);
-rng(1)
+%rng(1)
 y = rand([N M]);
 phi = zeros([M 1]);
 for i=1:M
@@ -31,7 +31,7 @@ D = ones(M, indxsize);
 for p=1:indxsize
     for i=1:M
         for n=1:N
-            D(i, p) = D(i, p)*legendreP(indxset(p, n), 2*y(n, i)-1);
+            D(i, p) = D(i, p)*sqrt(2*indxset(p, n)+1)*legendreP(indxset(p, n), 2*y(n, i)-1);
         end
     end
 end

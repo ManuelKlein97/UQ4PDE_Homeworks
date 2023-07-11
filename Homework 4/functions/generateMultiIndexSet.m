@@ -11,7 +11,9 @@ Parameters:
  type: Tensor product 'TP' / Hyperbolic Cross 'HC'
 ---------------------------------------------------------------------------
 %}
-
+if N == 1
+    error('N is supposed to be greater than 1.')
+end
 % Tensor product
 if strcmp(type, 'TP')    
     combinations = cell(1, N);
