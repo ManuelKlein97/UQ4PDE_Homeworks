@@ -1,4 +1,4 @@
-function [MLMC_estimate, MLMC_variance] = Multilevel_RQMC(h0, LMax, M_l, nu, s)
+function [MLMC_estimate, MLMC_variance, level_var] = Multilevel_RQMC(h0, LMax, M_l, nu, s)
 %{
 ---------------------------------------------------------------------------
 Description:
@@ -115,7 +115,7 @@ for shift=1:s
     MLMC_estimate_shift(shift) = sum(g);
     MLMC_variance_shift(shift) = sum(1./M_l.*V);
 end
-V
+level_var = V;
 MLMC_estimate = 1/s*sum(MLMC_estimate_shift);
 if s>1
     MLMC_variance = 1/(s-1)*sum((MLMC_estimate_shift - MLMC_estimate).^2);
